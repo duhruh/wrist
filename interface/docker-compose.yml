@@ -1,0 +1,11 @@
+version: "3.4"
+services:
+
+  web:
+    build: 
+      context: ./web
+      target: dev
+    volumes:
+      - ${WEB_CODE_PATH_HOST}:${WEB_CODE_PATH_CONTAINER}
+    ports:
+      - "3000:3000"
