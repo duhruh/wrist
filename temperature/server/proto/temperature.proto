@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package proto;
+
+service TemperatureService {
+    rpc StreamReadings(ReadingsRequest) returns (stream Reading) {}
+
+}
+
+message ReadingsRequest{}
+message Reading {
+    string message = 1;
+}
