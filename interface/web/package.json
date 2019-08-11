@@ -27,5 +27,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "google-protobuf": "^3.9.1",
+    "grpc-web": "^1.0.6"
   }
 }

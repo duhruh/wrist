@@ -10,22 +10,24 @@ services:
     ports:
       - "3000:3000"
 
-  temperature:
-    build: 
-      context: ./temperature
-      target: dev
-    volumes: 
-      - ./temperature:/app
-      - /sys/bus/w1/devices:/sys/bus/w1/devices
-    command: ["go", "run", "main.go"]
-    ports:
-      - "5000:5000"
-    networks:
-      - backend
+  # temperature:
+  #   build: 
+  #     context: ./temperature
+  #     target: dev
+  #   volumes: 
+  #     - ./temperature:/app
+  #     - /sys/bus/w1/devices:/sys/bus/w1/devices
+  #   command: ["go", "run", "main.go"]
+  #   ports:
+  #     - "5000:5000"
+  #   networks:
+  #     - backend
 
   envoy:
     build:
       context: ./envoy
+    ports:
+      - "8800:8800"
     networks:
       - backend
 

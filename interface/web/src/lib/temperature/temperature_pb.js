@@ -1,4 +1,5 @@
-// source: tempreature/temperature.proto
+ /* eslint-disable */
+// source: temperature/temperature.proto
 /**
  * @fileoverview
  * @enhanceable

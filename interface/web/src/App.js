@@ -1,36 +1,25 @@
-import React from 'react';
+import React, { Component } from "react";
 import './App.css';
 
 import Clock from './components/Clock';
-import Tempreature from './components/Tempreature';
+import Temperature from './components/Temperature';
 
 
-import {TempreatureService} from './lib/tempreature/temperature_grpc_web_pb';
-import {ReadingsRequest} from './lib/tempreature/temperature_pb';
+import {TemperatureServiceClient} from './lib/temperature/temperature_grpc_web_pb';
+
 
 class App extends Component {
 state = {
-  client: new TempreatureService(process.env.REACT_APP_TEMPREATURE_API),
+  client: new TemperatureServiceClient(process.env.REACT_APP_TEMPERATURE_API),
 }
 
-componentDidMount(){
-  let req = new ReadingsRequest();
-  let stream = this.state.client.streamReadings(req);
-  stream.on('data', this.onReading.bind(this));
-  stream.on('end', ()=>{
-    console.log("done")
-    console.log(arguments)
-  })
-}
-onReading(){
-  console.log(arguments);
-}
+
   render(){
     return (
       <div className="App">
         <header className="App-header">
           <Clock/>
-          <Tempreature/>
+          <Temperature client={this.state.client}/>
         </header>
       </div>
     );

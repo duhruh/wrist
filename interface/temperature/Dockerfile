@@ -11,8 +11,6 @@ RUN mkdir -p /opt/protoc cd /opt/protoc && \
 
 RUN go get -u github.com/golang/protobuf/protoc-gen-go
 
-FROM base
-
 COPY . /app
 
 WORKDIR /app
@@ -31,6 +29,6 @@ FROM alpine
 RUN apk add --no-cache \
         ca-certificates
 
-COPY --from=builder /app/tempreature /app/tempreature
+COPY --from=builder /app/temperature /app/temperature
 
-CMD ["/app/tempreature"]
+CMD ["/app/temperature"]
