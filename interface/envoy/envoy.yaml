@@ -7,7 +7,7 @@ static_resources:
   listeners:
   - name: listener_0
     address:
-      socket_address: { address: 0.0.0.0, port_value: 8080 }
+      socket_address: { address: 0.0.0.0, port_value: 8800 }
     filter_chains:
     - filters:
       - name: envoy.http_connection_manager
@@ -22,7 +22,7 @@ static_resources:
               routes:
               - match: { prefix: "/" }
                 route:
-                  cluster: greeter_service
+                  cluster: tempreature_service
                   max_grpc_timeout: 0s
               cors:
                 allow_origin:
@@ -31,15 +31,29 @@ static_resources:
                 allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
                 max_age: "1728000"
                 expose_headers: custom-header-1,grpc-status,grpc-message
+                filter_enabled:
+                  default_value:
+                    numerator: 100
+                    denominator: HUNDRED
+                  runtime_key: cors.www.enabled
           http_filters:
           - name: envoy.grpc_web
           - name: envoy.cors
           - name: envoy.router
   clusters:
-  - name: greeter_service
+  - name: tempreature_service
     connect_timeout: 0.25s
     type: logical_dns
     http2_protocol_options: {}
     lb_policy: round_robin
-    # win/mac hosts: Use address: host.docker.internal instead of address: localhost in the line below
-    hosts: [{ socket_address: { address: tempreature, port_value: 5000 }}]
+    load_assignment:
+      cluster_name: tempreature_service
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: tempreature
+                port_value: 8000
+    # hosts: [{ socket_address: { address: "tempreature", port_value: 8000 }}]
+    # hosts: [{ socket_address: { address: 10.52.11.137, port_value: 32781 }}]

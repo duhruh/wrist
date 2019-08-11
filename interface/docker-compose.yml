@@ -25,10 +25,10 @@ services:
 
   envoy:
     build:
-      context: ./web/docker/envoy
+      context: ./envoy
     networks:
       - backend
-      
+
 networks:
   backend:
     driver: "bridge"
