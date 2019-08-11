@@ -6,7 +6,7 @@ services:
     volumes: 
       - .:/app
       - ./test:/opt/device
-    command: ["go", "run", "main.go", "--device=/opt/device"]
+    command: ["go", "run", "main.go"]
     ports:
       - "5000:5000"
     devices:
