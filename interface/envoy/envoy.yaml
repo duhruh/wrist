@@ -22,7 +22,7 @@ static_resources:
               routes:
               - match: { prefix: "/" }
                 route:
-                  cluster: tempreature_service
+                  cluster: temperature_service
                   max_grpc_timeout: 0s
               cors:
                 allow_origin:
@@ -41,19 +41,19 @@ static_resources:
           - name: envoy.cors
           - name: envoy.router
   clusters:
-  - name: tempreature_service
+  - name: temperature_service
     connect_timeout: 0.25s
     type: logical_dns
     http2_protocol_options: {}
     lb_policy: round_robin
     load_assignment:
-      cluster_name: tempreature_service
+      cluster_name: temperature_service
       endpoints:
       - lb_endpoints:
         - endpoint:
             address:
               socket_address:
-                address: tempreature
+                address: temperature
                 port_value: 8000
-    # hosts: [{ socket_address: { address: "tempreature", port_value: 8000 }}]
+    # hosts: [{ socket_address: { address: "temperature", port_value: 8000 }}]
     # hosts: [{ socket_address: { address: 10.52.11.137, port_value: 32781 }}]
