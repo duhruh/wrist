@@ -9,3 +9,5 @@ services:
     command: ["go", "run", "main.go", "--device=/opt/device"]
     ports:
       - "5000:5000"
+    devices:
+      - "/sys/bus/w1/devices/28-0000071e1cf6:/sys/bus/w1/devices/28-0000071e1cf6"
