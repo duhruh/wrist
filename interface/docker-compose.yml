@@ -9,3 +9,26 @@ services:
       - ./web:/web
     ports:
       - "3000:3000"
+
+  tempreature:
+    build: 
+      context: ./tempreature
+      target: dev
+    volumes: 
+      - ./tempreature:/app
+      - /sys/bus/w1/devices:/sys/bus/w1/devices
+    command: ["go", "run", "main.go"]
+    ports:
+      - "5000:5000"
+    networks:
+      - backend
+
+  envoy:
+    build:
+      context: ./web/docker/envoy
+    networks:
+      - backend
+      
+networks:
+  backend:
+    driver: "bridge"

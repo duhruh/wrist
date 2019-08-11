@@ -16,3 +16,21 @@ FROM base
 COPY . /app
 
 WORKDIR /app
+
+FROM base as dev
+
+CMD go run main.go
+
+FROM base as builder 
+
+RUN go build \ 
+        -i .
+
+FROM alpine
+
+RUN apk add --no-cache \
+        ca-certificates
+
+COPY --from=builder /app/tempreature /app/tempreature
+
+CMD ["/app/tempreature"]
