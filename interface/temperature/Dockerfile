@@ -1,6 +1,6 @@
-FROM golang as base
+FROM arm32v6/golang:1.12-alpine as base
 
-RUN apt-get update && apt-get install -y unzip
+RUN apk update && apk add unzip git curl
 
 RUN mkdir -p /opt/protoc cd /opt/protoc && \ 
     curl https://github.com/google/protobuf/releases/download/v3.9.1/protoc-3.9.1-linux-x86_64.zip -o protoc.zip -L && \ 
